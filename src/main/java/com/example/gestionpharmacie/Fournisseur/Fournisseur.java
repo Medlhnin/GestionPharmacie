@@ -1,4 +1,4 @@
-package com.example.gestionpharmacie.Medicament;
+package com.example.gestionpharmacie.Fournisseur;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,24 +9,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Medicament {
+@Entity
+public class Fournisseur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
-    private String description;
-    private String type;
-    private String prix;
-    private String quantite;
-    private LocalDateTime dateExpiration;
-    //private String maladieCible;
-    //private String maladieChronique;
-    //private String image;
+    private String prénom;
+
 }

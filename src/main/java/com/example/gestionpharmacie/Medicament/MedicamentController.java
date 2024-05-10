@@ -23,11 +23,11 @@ public class MedicamentController {
     @PostMapping
     public ResponseEntity<Void> addMedicament(@RequestBody Medicament newMedicament, UriComponentsBuilder ucb) {
         Medicament savedMedicament = medicamentService.addMedicament(newMedicament);
-        URI locationOfNewCashCard = ucb
+        URI locationOfMedicament = ucb
                 .path("medicaments/{id}")
                 .buildAndExpand(savedMedicament.getId())
                 .toUri();
-        return ResponseEntity.created(locationOfNewCashCard).build();
+        return ResponseEntity.created(locationOfMedicament).build();
     }
 
     @PutMapping("/{id}")
