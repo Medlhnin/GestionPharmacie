@@ -21,7 +21,7 @@ public class Utilisateur {
     private Long id;
     private String nom;
     private String prenom;
-    private String email;
+    private String username;
     private String password;
     private String role;
     private String maladieChronique;

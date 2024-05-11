@@ -1,6 +1,5 @@
 package com.example.gestionpharmacie.Utilisateur;
 
-import com.example.gestionpharmacie.Medicament.Medicament;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,7 @@ public class UtilisateurController {
     public UtilisateurController(UtilisateurService utilisateurService) {
         this.utilisateurService = utilisateurService;
     }
-    @GetMapping("/{id}")
+    @GetMapping("/{requestedId}")
     public ResponseEntity<Utilisateur> findById(@PathVariable Long requestedId) {
         Utilisateur utilisateur = utilisateurService.findUtilisateurById(requestedId);
         if (utilisateur != null) {
@@ -26,11 +25,9 @@ public class UtilisateurController {
         else {
             return ResponseEntity.notFound().build();
         }
-
     }
-
     @PostMapping
-    public ResponseEntity<Void> addUtlisateur(@RequestBody Utilisateur newUtilisateur, UriComponentsBuilder ucb) {
+    public ResponseEntity<Void> Enregistrer(@RequestBody Utilisateur newUtilisateur, UriComponentsBuilder ucb) {
         Utilisateur savedUtilisateur = utilisateurService.addUtilisateur(newUtilisateur);
         URI locationOfMedicament = ucb
                 .path("utilisateur/{id}")

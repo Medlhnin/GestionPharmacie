@@ -13,20 +13,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommandeService {
     private final CommandeRepository commandeRepository;
-    private final ligneDeCommandeRepository ligneDeCommandeRepository;
+
     private final UtilisateurService utilisateurService;
     private final MedicamentService medicamentService;
     @Autowired
-    public CommandeService(CommandeRepository commandeRepository,ligneDeCommandeRepository ligneDeCommandeRepository, UtilisateurService utilisateurService, MedicamentService medicamentService) {
+    public CommandeService(CommandeRepository commandeRepository, UtilisateurService utilisateurService, MedicamentService medicamentService) {
         this.commandeRepository = commandeRepository;
-        this.ligneDeCommandeRepository = ligneDeCommandeRepository;
         this.utilisateurService = utilisateurService;
         this.medicamentService = medicamentService;
     }
     public Commande createCommande(CommandeDto commandeDto) {
         Commande newCommande = new Commande();
         Utilisateur utilisateur = utilisateurService.findUtilisateurById(commandeDto.getUtilisateurId());
-        newCommande.setDate(commandeDto.getDate());
+        newCommande.setDateCommande(commandeDto.getDate());
         newCommande.setEtat(commandeDto.getEtat());
         newCommande.setMontantTotal(commandeDto.getMontantTotal());
         newCommande.setModePaiement(commandeDto.getModePaiement());
@@ -34,7 +33,7 @@ public class CommandeService {
         newCommande.setUtilisateur(utilisateur);
         commandeDto.getLignesDeCommandeDto().forEach(ligneDeCommandeDto -> {
             LigneDeCommande ligneDeCommande = new LigneDeCommande();
-            ligneDeCommande.setQuantite(ligneDeCommandeDto.getQuantite());
+            ligneDeCommande.setQuantiteDemandee(ligneDeCommandeDto.getQuantite());
             Medicament medicament = medicamentService.findMedicamentById(ligneDeCommandeDto.getMedicamentId());
             ligneDeCommande.setMedicament(medicament);
             ligneDeCommande.setCommande(newCommande);

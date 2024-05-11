@@ -23,8 +23,8 @@ public class Medicament {
     private String nom;
     private String description;
     private String type;
-    private String prix;
-    private String quantite;
+    private Float prix;
+    private int quantiteRestante;
     private LocalDateTime dateExpiration;
     //private String maladieCible;
     //private String maladieChronique;

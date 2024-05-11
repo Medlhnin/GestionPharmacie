@@ -16,9 +16,9 @@ import lombok.Setter;
 @Entity
 public class Fournisseur {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String username;
     private String nom;
     private String prénom;
-
+    private String email;
 }

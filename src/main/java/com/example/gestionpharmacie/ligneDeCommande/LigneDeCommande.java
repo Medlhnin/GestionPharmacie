@@ -17,7 +17,7 @@ public class LigneDeCommande {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int quantite;
+    private int quantiteDemandee;
     @OneToOne
     @JoinColumn(name = "medicament_id")
     private Medicament medicament;

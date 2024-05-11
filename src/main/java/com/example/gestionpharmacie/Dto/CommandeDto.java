@@ -17,7 +17,7 @@ import java.util.List;
 public class CommandeDto {
     private LocalDateTime date;
     private String etat;
-    private String montantTotal;
+    private Float montantTotal;
     private String modePaiement;
     private String adresse;
     private Long utilisateurId;

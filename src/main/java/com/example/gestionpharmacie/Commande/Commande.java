@@ -21,9 +21,9 @@ public class Commande {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime date;
+    private LocalDateTime dateCommande;
     private String etat;
-    private String montantTotal;
+    private Float montantTotal;
     private String modePaiement;
     private String adresse;
     @ManyToOne
