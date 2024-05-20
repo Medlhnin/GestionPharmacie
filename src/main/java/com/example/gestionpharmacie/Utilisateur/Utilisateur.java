@@ -2,18 +2,17 @@ package com.example.gestionpharmacie.Utilisateur;
 
 import com.example.gestionpharmacie.Commande.Commande;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-@Getter
-@Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Data
 @Entity
 public class Utilisateur {
     @Id
@@ -21,11 +20,13 @@ public class Utilisateur {
     private Long id;
     private String nom;
     private String prenom;
+    private String email;
     private String username;
+    @Column(nullable = false)
+    @Size(max = 100)
     private String password;
     private String role;
-    private String maladieChronique;
     @OneToMany
-    private List<Commande> commandes;
+    private List<Commande> commandes = new ArrayList<>();
 
 }

@@ -20,6 +20,7 @@ public class CommandeController {
     public CommandeController(CommandeService commandeService) {
         this.commandeService = commandeService;
     }
+    /*
     @PostMapping
     public ResponseEntity<Void> createCommande(@RequestBody CommandeDto commandeDto, UriComponentsBuilder ucb) {
         Commande savedCommande = commandeService.createCommande(commandeDto);
@@ -28,5 +29,5 @@ public class CommandeController {
                 .buildAndExpand(savedCommande.getId())
                 .toUri();
         return ResponseEntity.created(locationOfCommande).build();
-    }
+    } */
 }

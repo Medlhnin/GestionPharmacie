@@ -1,58 +1,36 @@
 package com.example.gestionpharmacie.Utilisateur;
 
-import com.example.gestionpharmacie.Dto.LoginRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import com.example.gestionpharmacie.Config.UserAuthenticationProvider;
+import com.example.gestionpharmacie.Dto.CredentialsDto;
+import com.example.gestionpharmacie.Dto.SignUpDto;
+import com.example.gestionpharmacie.Dto.UserDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Controller;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
+
 
 import java.net.URI;
 
+@RequiredArgsConstructor
 @Controller
-@RequestMapping("/utilisateur")
+@RequestMapping("/api/utilisateur")
 public class UtilisateurController {
     private final UtilisateurService utilisateurService;
-    private final AuthenticationManager authenticationManager;
-    private final PasswordEncoder passwordEncoder;
-    @Autowired
-    public UtilisateurController(UtilisateurService utilisateurService,
-                                  AuthenticationManager authenticationManager,
-                                  PasswordEncoder passwordEncoder) {
-        this.utilisateurService = utilisateurService;
-        this.authenticationManager = authenticationManager;
-        this.passwordEncoder = passwordEncoder;
-    }
-    @GetMapping("/{requestedId}")
-    public ResponseEntity<Utilisateur> findById(@PathVariable Long requestedId) {
-        Utilisateur utilisateur = utilisateurService.findUtilisateurById(requestedId);
-        if (utilisateur != null) {
-            return ResponseEntity.ok(utilisateur);
-        }
-        else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-    @PostMapping
-    public ResponseEntity<Void> enregistrer(@RequestBody Utilisateur newUtilisateur, UriComponentsBuilder ucb) {
-        String hashedPassword = passwordEncoder.encode(newUtilisateur.getPassword());
-        newUtilisateur.setPassword(hashedPassword);
-        Utilisateur savedUtilisateur = utilisateurService.addUtilisateur(newUtilisateur);
-        URI locationOfMedicament = ucb
-                .path("utilisateur/{id}")
-                .buildAndExpand(savedUtilisateur.getId())
-                .toUri();
-        return ResponseEntity.created(locationOfMedicament).build();
+    private final UserAuthenticationProvider userAuthenticationProvider;
+
+    @PostMapping("/register")
+    public ResponseEntity<UserDto> register(@RequestBody SignUpDto user) {
+        UserDto createdUser = utilisateurService.register(user);
+        createdUser.setToken(userAuthenticationProvider.createToken(createdUser));
+        return ResponseEntity.created(URI.create("/api/utilisateur/" + createdUser.getId())).body(createdUser);
     }
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        Authentication authenticationRequest = UsernamePasswordAuthenticationToken.unauthenticated(loginRequest.getUsername(), loginRequest.getPassword());
-        Authentication authenticationResponse = this.authenticationManager.authenticate(authenticationRequest);
-        return ResponseEntity.status(HttpStatus.OK).body(authenticationResponse.toString());
+    public ResponseEntity<UserDto> login(@RequestBody @Valid CredentialsDto credentialsDto) {
+        UserDto userDto = utilisateurService.login(credentialsDto);
+        userDto.setToken(userAuthenticationProvider.createToken(userDto));
+        return ResponseEntity.ok(userDto);
     }
 }

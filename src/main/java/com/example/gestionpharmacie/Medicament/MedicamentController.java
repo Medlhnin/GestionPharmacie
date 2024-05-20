@@ -10,10 +10,12 @@ import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
+
 @Controller
-@RequestMapping("/medicaments")
+@RequestMapping("/api/medicament")
 public class MedicamentController {
     private final MedicamentService medicamentService;
     @Autowired
@@ -24,7 +26,7 @@ public class MedicamentController {
     public ResponseEntity<Void> addMedicament(@RequestBody Medicament newMedicament, UriComponentsBuilder ucb) {
         Medicament savedMedicament = medicamentService.addMedicament(newMedicament);
         URI locationOfMedicament = ucb
-                .path("medicaments/{id}")
+                .path("api/medicament/{id}")
                 .buildAndExpand(savedMedicament.getId())
                 .toUri();
         return ResponseEntity.created(locationOfMedicament).build();
@@ -34,7 +36,7 @@ public class MedicamentController {
     public ResponseEntity<Void> updateMedicament(@RequestBody Medicament medicament, UriComponentsBuilder ucb) {
         Medicament updatedMedicament = medicamentService.updateMedicament(medicament);
         URI locationOfUpdatedCashCard = ucb
-                .path("medicaments/{id}")
+                .path("api/medicament/{id}")
                 .buildAndExpand(updatedMedicament.getId())
                 .toUri();
         return ResponseEntity.created(locationOfUpdatedCashCard).build();
@@ -47,7 +49,7 @@ public class MedicamentController {
     }
 
     @GetMapping("/{requestedId}")
-    private ResponseEntity<Medicament> findById(@PathVariable Long requestedId) {
+    public ResponseEntity<Medicament> findById(@PathVariable Long requestedId) {
         Medicament medicament = medicamentService.findMedicamentById(requestedId);
         if (medicament != null) {
             return ResponseEntity.ok(medicament);
@@ -56,5 +58,9 @@ public class MedicamentController {
             return ResponseEntity.notFound().build();
         }
 
+    }
+    @GetMapping
+    public ResponseEntity<List<Medicament>> findAllMedicaments() {
+        return ResponseEntity.ok(medicamentService.findAllMedicaments());
     }
 }

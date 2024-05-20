@@ -22,7 +22,9 @@ public class CommandeService {
         this.utilisateurService = utilisateurService;
         this.medicamentService = medicamentService;
     }
+    /*
     public Commande createCommande(CommandeDto commandeDto) {
+
         Commande newCommande = new Commande();
         Utilisateur utilisateur = utilisateurService.findUtilisateurById(commandeDto.getUtilisateurId());
         newCommande.setDateCommande(commandeDto.getDate());
@@ -42,4 +44,5 @@ public class CommandeService {
         commandeRepository.save(newCommande);
         return newCommande;
     }
+               */
 }
