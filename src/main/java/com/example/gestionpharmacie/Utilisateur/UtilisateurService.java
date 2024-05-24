@@ -25,7 +25,14 @@ public class UtilisateurService {
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
 
         if (passwordEncoder.matches(CharBuffer.wrap(credentialsDto.password()), user.getPassword())) {
-            return userMapper.toUserDto(user);
+            UserDto userDto = userMapper.toUserDto(user);
+            if(userDto.getRole() == null){
+                userDto.setRole(user.getRole());
+            }
+            if(userDto.getEmail() == null){
+                userDto.setEmail(user.getEmail());
+            }
+            return userDto;
         }
         throw new AppException("Invalid password", HttpStatus.BAD_REQUEST);
     }
@@ -51,11 +58,13 @@ public class UtilisateurService {
 
         Utilisateur user = userMapper.signUpToUser(userDto);
         user.setPassword(passwordEncoder.encode(CharBuffer.wrap(userDto.password())));
-        user.setRole("USER");
         user.setEmail(userDto.email());
+        user.setRole(userDto.role());
         Utilisateur savedUser = utilisateurRepository.save(user);
-
-        return userMapper.toUserDto(savedUser);
+        UserDto userDto1 = userMapper.toUserDto(savedUser);
+        userDto1.setEmail(userDto.email());
+        userDto1.setRole(userDto.role());
+        return userDto1;
     }
 
     public UserDto findByLogin(String username) {

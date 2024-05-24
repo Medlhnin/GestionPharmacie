@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-@Controller
+@RestController
 @RequestMapping("/api/medicament")
 public class MedicamentController {
     private final MedicamentService medicamentService;

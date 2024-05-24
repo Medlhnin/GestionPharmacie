@@ -28,7 +28,7 @@ public class UtilisateurController {
         return ResponseEntity.created(URI.create("/api/utilisateur/" + createdUser.getId())).body(createdUser);
     }
     @PostMapping("/login")
-    public ResponseEntity<UserDto> login(@RequestBody @Valid CredentialsDto credentialsDto) {
+    public ResponseEntity<UserDto> login(@RequestBody CredentialsDto credentialsDto) {
         UserDto userDto = utilisateurService.login(credentialsDto);
         userDto.setToken(userAuthenticationProvider.createToken(userDto));
         return ResponseEntity.ok(userDto);
