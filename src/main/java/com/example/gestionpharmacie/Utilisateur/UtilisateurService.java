@@ -41,7 +41,7 @@ public class UtilisateurService {
         Optional<Utilisateur> optionalUser = utilisateurRepository.findByUsername(userDto.username());
 
         if (optionalUser.isPresent()) {
-            throw new AppException("Login already exists", HttpStatus.BAD_REQUEST);
+            throw new AppException("User already exists", HttpStatus.BAD_REQUEST);
         }
 
         if(userDto.email()==null || userDto.email().isEmpty()){
@@ -58,8 +58,6 @@ public class UtilisateurService {
 
         Utilisateur user = userMapper.signUpToUser(userDto);
         user.setPassword(passwordEncoder.encode(CharBuffer.wrap(userDto.password())));
-        user.setEmail(userDto.email());
-        user.setRole(userDto.role());
         Utilisateur savedUser = utilisateurRepository.save(user);
         UserDto userDto1 = userMapper.toUserDto(savedUser);
         userDto1.setEmail(userDto.email());

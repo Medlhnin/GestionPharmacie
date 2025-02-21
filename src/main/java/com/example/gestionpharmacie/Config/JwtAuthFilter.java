@@ -31,17 +31,19 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     if ("GET".equals(request.getMethod())) {
                         SecurityContextHolder.getContext().setAuthentication(
                                 userAuthenticationProvider.validateToken(authElements[1]));
+
                     } else {
                         SecurityContextHolder.getContext().setAuthentication(
                                 userAuthenticationProvider.validateTokenStrongly(authElements[1]));
                     }
                 } catch (RuntimeException e) {
                     SecurityContextHolder.clearContext();
-                    throw e;
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    response.getWriter().write("Invalid or expired JWT token");
+                    return;
                 }
             }
         }
-
         filterChain.doFilter(request, response);
     }
 }

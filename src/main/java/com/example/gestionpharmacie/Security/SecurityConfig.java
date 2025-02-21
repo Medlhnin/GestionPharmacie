@@ -32,13 +32,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .exceptionHandling(customizer -> customizer.authenticationEntryPoint(userAuthenticationEntryPoint))
+                // .exceptionHandling(customizer -> customizer.authenticationEntryPoint(userAuthenticationEntryPoint))
                 .addFilterBefore(new JwtAuthFilter(userAuthenticationProvider), BasicAuthenticationFilter.class)
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(HttpMethod.POST, "/api/utilisateur/login", "/api/utilisateur/register").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/medicament/admin").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.POST,"/api/medicament").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT,"/api/medicament").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE,"/api/medicament").hasRole("ADMIN")
                         .anyRequest().authenticated())
         ;
         return http.build();
