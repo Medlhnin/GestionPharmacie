@@ -4,7 +4,7 @@ import com.example.gestionpharmacie.Dto.CredentialsDto;
 import com.example.gestionpharmacie.Dto.SignUpDto;
 import com.example.gestionpharmacie.Dto.UserDto;
 import com.example.gestionpharmacie.exceptions.AppException;
-import com.example.gestionpharmacie.mappers.UserMapper;
+import com.example.gestionpharmacie.Mappers.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,4 +1,4 @@
-package com.example.gestionpharmacie.Fournisseur;
+package com.example.gestionpharmacie.Supplier;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,11 +14,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Fournisseur {
+public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String username;
-    private String nom;
-    private String prénom;
-    private String email;
+    private Long id;
+    private String companyName;
+    private String companyAddress;
+    private String companyPhoneNumber;
+    private String companyEmail;
+    private String companyWebsite;
 }

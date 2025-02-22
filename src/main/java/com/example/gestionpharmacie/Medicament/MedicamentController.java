@@ -1,20 +1,14 @@
 package com.example.gestionpharmacie.Medicament;
 
 import com.example.gestionpharmacie.Dto.MedicamentDTO;
-import com.example.gestionpharmacie.mappers.MedicamentMapper;
+import com.example.gestionpharmacie.Mappers.MedicamentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController

@@ -1,4 +1,4 @@
-package com.example.gestionpharmacie.mappers;
+package com.example.gestionpharmacie.Mappers;
 
 import com.example.gestionpharmacie.Dto.MedicamentDTO;
 import com.example.gestionpharmacie.Medicament.Medicament;
