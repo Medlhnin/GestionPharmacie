@@ -1,6 +1,7 @@
 package com.example.gestionpharmacie.Utilisateur;
 
-import com.example.gestionpharmacie.Commande.Commande;
+import com.example.gestionpharmacie.Order.Order;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -26,9 +27,10 @@ public class Utilisateur {
     private String username;
     @Column(nullable = false)
     @Size(max = 100)
+    @JsonIgnore
     private String password;
     private String role;
     @OneToMany
-    private List<Commande> commandes = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 
 }

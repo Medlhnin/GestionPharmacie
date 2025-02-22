@@ -1,5 +1,7 @@
 package com.example.gestionpharmacie.Medicament;
 
+import com.example.gestionpharmacie.Dto.MedicamentDTO;
+import com.example.gestionpharmacie.mappers.MedicamentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,13 +20,23 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/medicament")
 public class MedicamentController {
-    @Autowired
-    private MedicamentService medicamentService;
 
+    private final MedicamentService medicamentService;
+    private final MedicamentMapper medicamentMapper;
+
+    @Autowired
+    public MedicamentController(MedicamentService medicamentService,
+                                MedicamentMapper medicamentMapper) {
+        this.medicamentService = medicamentService;
+        this.medicamentMapper = medicamentMapper;
+    }
 
     @PostMapping
-    public ResponseEntity<Void> addMedicament(@RequestBody Medicament newMedicament, UriComponentsBuilder ucb) {
-        Medicament savedMedicament = medicamentService.addMedicament(newMedicament);
+    public ResponseEntity<Void> addMedicament(@RequestBody MedicamentDTO medicamentDTO, UriComponentsBuilder ucb) {
+        Medicament medicament = new Medicament();
+        medicament = medicamentMapper.toMedicament(medicamentDTO);
+        medicament.setName(medicamentDTO.getName()); // Problème recontré au niveau de l'attibut name
+        Medicament savedMedicament = medicamentService.addMedicament(medicament, medicamentDTO.getAvailableQuantity());
         URI locationOfMedicament = ucb
                 .path("api/medicament/{id}")
                 .buildAndExpand(savedMedicament.getId())

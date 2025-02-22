@@ -15,13 +15,13 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class UtilisateurService {
-    private final UtilisateurRepository utilisateurRepository;
+public class UserService {
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
 
     public UserDto login(CredentialsDto credentialsDto) {
-        Utilisateur user = utilisateurRepository.findByUsername(credentialsDto.username())
+        Utilisateur user = userRepository.findByUsername(credentialsDto.username())
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
 
         if (passwordEncoder.matches(CharBuffer.wrap(credentialsDto.password()), user.getPassword())) {
@@ -38,7 +38,7 @@ public class UtilisateurService {
     }
 
     public UserDto register(SignUpDto userDto) {
-        Optional<Utilisateur> optionalUser = utilisateurRepository.findByUsername(userDto.username());
+        Optional<Utilisateur> optionalUser = userRepository.findByUsername(userDto.username());
 
         if (optionalUser.isPresent()) {
             throw new AppException("User already exists", HttpStatus.BAD_REQUEST);
@@ -58,7 +58,7 @@ public class UtilisateurService {
 
         Utilisateur user = userMapper.signUpToUser(userDto);
         user.setPassword(passwordEncoder.encode(CharBuffer.wrap(userDto.password())));
-        Utilisateur savedUser = utilisateurRepository.save(user);
+        Utilisateur savedUser = userRepository.save(user);
         UserDto userDto1 = userMapper.toUserDto(savedUser);
         userDto1.setEmail(userDto.email());
         userDto1.setRole(userDto.role());
@@ -66,7 +66,7 @@ public class UtilisateurService {
     }
 
     public UserDto findByLogin(String username) {
-        Utilisateur user = utilisateurRepository.findByUsername(username)
+        Utilisateur user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
         return userMapper.toUserDto(user);
     }

@@ -1,7 +1,8 @@
-package com.example.gestionpharmacie.ligneDeCommande;
+package com.example.gestionpharmacie.OrderItem;
 
-import com.example.gestionpharmacie.Commande.Commande;
+import com.example.gestionpharmacie.Order.Order;
 import com.example.gestionpharmacie.Medicament.Medicament;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,15 +14,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LigneDeCommande {
+@Table(name = "items")
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int quantiteDemandee;
-    @OneToOne
+    private int quantity;
+    @ManyToOne
     @JoinColumn(name = "medicament_id")
     private Medicament medicament;
     @ManyToOne
-    @JoinColumn(name = "commande_id")
-    private Commande commande;
+    @JoinColumn(name = "order_id")
+    @JsonBackReference
+    private Order order;
 }

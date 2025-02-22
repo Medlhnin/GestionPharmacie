@@ -5,7 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.gestionpharmacie.Dto.UserDto;
-import com.example.gestionpharmacie.Utilisateur.UtilisateurService;
+import com.example.gestionpharmacie.Utilisateur.UserService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +16,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.Base64;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +25,7 @@ import java.util.List;
 public class UserAuthenticationProvider {
     @Value("${security.jwt.token.secret-key:secret-key}")
     private String secretKey;
-    private final UtilisateurService userService;
+    private final UserService userService;
 
     @PostConstruct
     protected void init() {

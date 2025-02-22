@@ -1,9 +1,8 @@
 package com.example.gestionpharmacie.Medicament;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.gestionpharmacie.Inventory.Inventory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,13 +19,13 @@ public class Medicament {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nom;
+    private String name;
     private String description;
     private String type;
-    private Float prix;
-    private int quantiteRestante;
+    private double price;
     private LocalDateTime dateExpiration;
-    //private String maladieCible;
-    //private String maladieChronique;
-    //private String image;
+    @OneToOne(mappedBy = "medicament", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Inventory inventory;
+
 }

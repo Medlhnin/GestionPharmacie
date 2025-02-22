@@ -1,7 +1,9 @@
 package com.example.gestionpharmacie.mappers;
 
+import com.example.gestionpharmacie.Dto.MedicamentDTO;
 import com.example.gestionpharmacie.Dto.SignUpDto;
 import com.example.gestionpharmacie.Dto.UserDto;
+import com.example.gestionpharmacie.Medicament.Medicament;
 import com.example.gestionpharmacie.Utilisateur.Utilisateur;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,4 +14,5 @@ public interface UserMapper {
 
     @Mapping(target = "password", ignore = true)
     Utilisateur signUpToUser(SignUpDto signUpDto);
+
 }

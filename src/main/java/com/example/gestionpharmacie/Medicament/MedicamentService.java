@@ -1,5 +1,7 @@
 package com.example.gestionpharmacie.Medicament;
 
+import com.example.gestionpharmacie.Inventory.Inventory;
+import com.example.gestionpharmacie.Inventory.InventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -10,11 +12,23 @@ import java.util.Optional;
 @Service
 public class MedicamentService {
     private final MedicamentRepository medicamentRepository;
+    private final InventoryRepository inventoryRepository;
+
     @Autowired
-    public MedicamentService(MedicamentRepository medicamentRepository) {
+    public MedicamentService(MedicamentRepository medicamentRepository, InventoryRepository inventoryRepository) {
         this.medicamentRepository = medicamentRepository;
+        this.inventoryRepository = inventoryRepository;
     }
-    public Medicament addMedicament(Medicament medicament) {
+    public Medicament addMedicament(Medicament medicament, int initialStock) {
+        Medicament savedMedicament = medicamentRepository.save(medicament);
+        Inventory inventory = new Inventory();
+        inventory.setMedicament(savedMedicament);
+        inventory.setAvailableQuantity(initialStock);
+
+        inventoryRepository.save(inventory);
+
+        savedMedicament.setInventory(inventory);
+
         return medicamentRepository.save(medicament);
     }
     public Medicament updateMedicament(Medicament medicament) {
