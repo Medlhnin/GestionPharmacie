@@ -1,4 +1,4 @@
-package com.example.gestionpharmacie.Utilisateur;
+package com.example.gestionpharmacie.Users;
 
 import com.example.gestionpharmacie.Config.UserAuthenticationProvider;
 import com.example.gestionpharmacie.Dto.CredentialsDto;

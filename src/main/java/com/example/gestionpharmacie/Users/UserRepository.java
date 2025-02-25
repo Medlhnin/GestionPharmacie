@@ -1,4 +1,4 @@
-package com.example.gestionpharmacie.Utilisateur;
+package com.example.gestionpharmacie.Users;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

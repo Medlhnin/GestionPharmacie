@@ -1,4 +1,4 @@
-package com.example.gestionpharmacie.Medicament;
+package com.example.gestionpharmacie.Medicaments;
 
 import com.example.gestionpharmacie.Inventory.Inventory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,5 +27,4 @@ public class Medicament {
     @OneToOne(mappedBy = "medicament", cascade = CascadeType.ALL)
     @JsonIgnore
     private Inventory inventory;
-
 }

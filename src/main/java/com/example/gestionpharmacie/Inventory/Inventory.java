@@ -1,6 +1,6 @@
 package com.example.gestionpharmacie.Inventory;
 
-import com.example.gestionpharmacie.Medicament.Medicament;
+import com.example.gestionpharmacie.Medicaments.Medicament;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

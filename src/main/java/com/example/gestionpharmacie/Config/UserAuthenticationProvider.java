@@ -5,7 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.gestionpharmacie.Dto.UserDto;
-import com.example.gestionpharmacie.Utilisateur.UserService;
+import com.example.gestionpharmacie.Users.UserService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,8 +42,8 @@ public class UserAuthenticationProvider {
                 .withSubject(user.getUsername())
                 .withIssuedAt(now)
                 .withExpiresAt(validity)
-                .withClaim("prenom", user.getPrenom())
-                .withClaim("nom", user.getNom())
+                .withClaim("firstname", user.getFirstname())
+                .withClaim("lastname", user.getLastname())
                 .withClaim("role", user.getRole())
                 .withClaim("email", user.getEmail())
                 .sign(algorithm);
@@ -61,8 +61,8 @@ public class UserAuthenticationProvider {
 
         UserDto user = UserDto.builder()
                 .username(decoded.getSubject())
-                .prenom(decoded.getClaim("prenom").asString())
-                .nom(decoded.getClaim("nom").asString())
+                .firstname(decoded.getClaim("firstname").asString())
+                .lastname(decoded.getClaim("lastname").asString())
                 .role(role)
                 .email(decoded.getClaim("email").asString())
                 .build();

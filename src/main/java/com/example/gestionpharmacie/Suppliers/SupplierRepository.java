@@ -1,4 +1,4 @@
-package com.example.gestionpharmacie.Supplier;
+package com.example.gestionpharmacie.Suppliers;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

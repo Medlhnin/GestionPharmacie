@@ -1,4 +1,4 @@
-package com.example.gestionpharmacie.Supplier;
+package com.example.gestionpharmacie.Suppliers;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

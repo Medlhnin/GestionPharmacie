@@ -1,13 +1,13 @@
-package com.example.gestionpharmacie.Order;
+package com.example.gestionpharmacie.Orders;
 
 import com.example.gestionpharmacie.Dto.OrderItemRequest;
 import com.example.gestionpharmacie.Inventory.Inventory;
 import com.example.gestionpharmacie.Inventory.InventoryRepository;
-import com.example.gestionpharmacie.Medicament.Medicament;
-import com.example.gestionpharmacie.Medicament.MedicamentRepository;
+import com.example.gestionpharmacie.Medicaments.Medicament;
+import com.example.gestionpharmacie.Medicaments.MedicamentRepository;
 import com.example.gestionpharmacie.OrderItem.OrderItem;
-import com.example.gestionpharmacie.Utilisateur.Utilisateur;
-import com.example.gestionpharmacie.Utilisateur.UserRepository;
+import com.example.gestionpharmacie.Users.Utilisateur;
+import com.example.gestionpharmacie.Users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.example.gestionpharmacie.Medicament;
+package com.example.gestionpharmacie.Medicaments;
 
 import com.example.gestionpharmacie.Dto.MedicamentDTO;
 import com.example.gestionpharmacie.Mappers.MedicamentMapper;
@@ -28,8 +28,11 @@ public class MedicamentController {
     @PostMapping
     public ResponseEntity<Void> addMedicament(@RequestBody MedicamentDTO medicamentDTO, UriComponentsBuilder ucb) {
         Medicament medicament = new Medicament();
-        medicament = medicamentMapper.toMedicament(medicamentDTO);
-        medicament.setName(medicamentDTO.getName()); // Problème recontré au niveau de l'attibut name
+        medicament.setName(medicamentDTO.getName());
+        medicament.setPrice(medicamentDTO.getPrice());
+        medicament.setDescription(medicamentDTO.getDescription());
+        medicament.setType(medicamentDTO.getType());
+        medicament.setDateExpiration(medicamentDTO.getDateExpiration());
         Medicament savedMedicament = medicamentService.addMedicament(medicament, medicamentDTO.getAvailableQuantity());
         URI locationOfMedicament = ucb
                 .path("api/medicament/{id}")

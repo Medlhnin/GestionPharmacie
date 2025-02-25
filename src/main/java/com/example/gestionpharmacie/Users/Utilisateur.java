@@ -1,6 +1,6 @@
-package com.example.gestionpharmacie.Utilisateur;
+package com.example.gestionpharmacie.Users;
 
-import com.example.gestionpharmacie.Order.Order;
+import com.example.gestionpharmacie.Orders.Order;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -21,8 +21,8 @@ public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nom;
-    private String prenom;
+    private String firstname;
+    private String lastname;
     private String email;
     private String username;
     @Column(nullable = false)

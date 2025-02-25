@@ -1,9 +1,9 @@
-package com.example.gestionpharmacie.Utilisateur;
+package com.example.gestionpharmacie.Users;
 
 import com.example.gestionpharmacie.Dto.CredentialsDto;
 import com.example.gestionpharmacie.Dto.SignUpDto;
 import com.example.gestionpharmacie.Dto.UserDto;
-import com.example.gestionpharmacie.exceptions.AppException;
+import com.example.gestionpharmacie.Exceptions.AppException;
 import com.example.gestionpharmacie.Mappers.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -48,19 +48,19 @@ public class UserService {
             throw new AppException("Email is required", HttpStatus.BAD_REQUEST);
         }
 
-        if(userDto.nom() == null || userDto.nom().isEmpty()){
-            throw new AppException("Nom is required", HttpStatus.BAD_REQUEST);
+        if(userDto.firstname() == null || userDto.firstname().isEmpty()){
+            throw new AppException("Firstname is required", HttpStatus.BAD_REQUEST);
         }
 
-        if(userDto.prenom() == null || userDto.prenom().isEmpty()){
-            throw new AppException("Prenom is required", HttpStatus.BAD_REQUEST);
+        if(userDto.lastname() == null || userDto.lastname().isEmpty()){
+            throw new AppException("Lastname is required", HttpStatus.BAD_REQUEST);
         }
 
         Utilisateur user = userMapper.signUpToUser(userDto);
         user.setPassword(passwordEncoder.encode(CharBuffer.wrap(userDto.password())));
         Utilisateur savedUser = userRepository.save(user);
         UserDto userDto1 = userMapper.toUserDto(savedUser);
-        userDto1.setEmail(userDto.email());
+        // userDto1.setEmail(userDto.email());
         userDto1.setRole(userDto.role());
         return userDto1;
     }

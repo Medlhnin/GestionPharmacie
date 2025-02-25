@@ -1,4 +1,4 @@
-package com.example.gestionpharmacie.exceptions;
+package com.example.gestionpharmacie.Exceptions;
 
 import org.springframework.http.HttpStatus;
 

@@ -1,9 +1,8 @@
-package com.example.gestionpharmacie.Medicament;
+package com.example.gestionpharmacie.Medicaments;
 
 import com.example.gestionpharmacie.Inventory.Inventory;
 import com.example.gestionpharmacie.Inventory.InventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.example.gestionpharmacie.Inventory;
 
-import com.example.gestionpharmacie.Medicament.Medicament;
+import com.example.gestionpharmacie.Medicaments.Medicament;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

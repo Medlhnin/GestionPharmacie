@@ -1,10 +1,9 @@
-package com.example.gestionpharmacie.Order;
+package com.example.gestionpharmacie.Orders;
 
 import com.example.gestionpharmacie.Dto.OrderItemRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

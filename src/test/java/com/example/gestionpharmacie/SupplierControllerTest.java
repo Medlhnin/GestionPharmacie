@@ -1,8 +1,8 @@
 package com.example.gestionpharmacie;
 
-import com.example.gestionpharmacie.Supplier.Supplier;
-import com.example.gestionpharmacie.Supplier.SupplierController;
-import com.example.gestionpharmacie.Supplier.SupplierRepository;
+import com.example.gestionpharmacie.Suppliers.Supplier;
+import com.example.gestionpharmacie.Suppliers.SupplierController;
+import com.example.gestionpharmacie.Suppliers.SupplierRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

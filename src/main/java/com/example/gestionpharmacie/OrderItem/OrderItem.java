@@ -1,7 +1,7 @@
 package com.example.gestionpharmacie.OrderItem;
 
-import com.example.gestionpharmacie.Order.Order;
-import com.example.gestionpharmacie.Medicament.Medicament;
+import com.example.gestionpharmacie.Orders.Order;
+import com.example.gestionpharmacie.Medicaments.Medicament;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

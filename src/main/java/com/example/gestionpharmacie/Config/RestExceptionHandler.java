@@ -1,7 +1,7 @@
 package com.example.gestionpharmacie.Config;
 
 import com.example.gestionpharmacie.Dto.ErrorDto;
-import com.example.gestionpharmacie.exceptions.AppException;
+import com.example.gestionpharmacie.Exceptions.AppException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
