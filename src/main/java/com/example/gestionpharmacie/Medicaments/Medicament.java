@@ -1,14 +1,14 @@
 package com.example.gestionpharmacie.Medicaments;
 
 import com.example.gestionpharmacie.Inventory.Inventory;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 @Entity
 @Getter
@@ -23,8 +23,7 @@ public class Medicament {
     private String description;
     private String type;
     private double price;
-    private LocalDateTime dateExpiration;
+    private LocalDate dateExpiration;
     @OneToOne(mappedBy = "medicament", cascade = CascadeType.ALL)
-    @JsonIgnore
     private Inventory inventory;
 }

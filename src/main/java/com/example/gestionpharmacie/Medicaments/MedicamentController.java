@@ -29,8 +29,8 @@ public class MedicamentController {
     public ResponseEntity<Void> addMedicament(@RequestBody MedicamentDTO medicamentDTO, UriComponentsBuilder ucb) {
         Medicament medicament = new Medicament();
         medicament.setName(medicamentDTO.getName());
-        medicament.setPrice(medicamentDTO.getPrice());
         medicament.setDescription(medicamentDTO.getDescription());
+        medicament.setPrice(medicamentDTO.getPrice());
         medicament.setType(medicamentDTO.getType());
         medicament.setDateExpiration(medicamentDTO.getDateExpiration());
         Medicament savedMedicament = medicamentService.addMedicament(medicament, medicamentDTO.getAvailableQuantity());
@@ -43,13 +43,15 @@ public class MedicamentController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateMedicament(@RequestBody Medicament medicament, UriComponentsBuilder ucb) {
-        Medicament updatedMedicament = medicamentService.updateMedicament(medicament);
-        URI locationOfUpdatedCashCard = ucb
+    public ResponseEntity<Void> updateMedicament(@RequestBody MedicamentDTO updatedMedicament,
+                                                 @PathVariable Long id,
+                                                 UriComponentsBuilder ucb) {
+        Medicament medicament = medicamentService.updateMedicament(id, updatedMedicament);
+        URI locationOfUpdatedMedicament = ucb
                 .path("api/medicament/{id}")
-                .buildAndExpand(updatedMedicament.getId())
+                .buildAndExpand(medicament.getId())
                 .toUri();
-        return ResponseEntity.created(locationOfUpdatedCashCard).build();
+        return ResponseEntity.created(locationOfUpdatedMedicament).build();
     }
 
     @DeleteMapping("/{id}")

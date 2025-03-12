@@ -1,8 +1,10 @@
 package com.example.gestionpharmacie.Suppliers;
 
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -22,11 +24,11 @@ public class SupplierController {
     public ResponseEntity<Void> addSupplier(@RequestBody Supplier newSupplier,
                                                UriComponentsBuilder ucb) {
         Supplier supplier = new Supplier(null,
-                newSupplier.getCompanyName(),
-                newSupplier.getCompanyAddress(),
-                newSupplier.getCompanyEmail(),
-                newSupplier.getCompanyPhoneNumber(),
-                newSupplier.getCompanyWebsite());
+                newSupplier.getName(),
+                newSupplier.getAddress(),
+                newSupplier.getPhoneNumber(),
+                newSupplier.getEmail(),
+                newSupplier.getWebsite());
         Supplier savedSupplier = supplierRepository.save(supplier);
         URI locationOfNewSupplier = ucb
                 .path("/api/v1/suppliers/{id}")
@@ -41,6 +43,14 @@ public class SupplierController {
         return ResponseEntity.ok(suppliers);
     }
 
+    @GetMapping("/{requestedId}")
+    public ResponseEntity<Supplier> getSupplier(@PathVariable Long requestedId){
+        Supplier supplier = supplierRepository.findById(requestedId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Supplier NOT FOUND."));
+
+        return ResponseEntity.ok(supplier);
+    }
+
     @PutMapping("/{requestedId}")
     public ResponseEntity<Void> putSupplier(@PathVariable Long requestedId,
                                              @RequestBody Supplier supplierUpdate) {
@@ -48,11 +58,11 @@ public class SupplierController {
         if (optionalSupplier.isPresent()) {
             Supplier supplier = optionalSupplier.get();
             Supplier updatedSupplier = new Supplier(supplier.getId(),
-                    supplierUpdate.getCompanyName(),
-                    supplierUpdate.getCompanyAddress(),
-                    supplierUpdate.getCompanyEmail(),
-                    supplierUpdate.getCompanyPhoneNumber(),
-                    supplierUpdate.getCompanyWebsite());
+                    supplierUpdate.getName(),
+                    supplierUpdate.getAddress(),
+                    supplierUpdate.getPhoneNumber(),
+                    supplierUpdate.getEmail(),
+                    supplierUpdate.getWebsite());
 
             supplierRepository.save(updatedSupplier);
             return ResponseEntity.noContent().build();

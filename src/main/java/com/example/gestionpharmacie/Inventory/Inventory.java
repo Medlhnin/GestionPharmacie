@@ -1,6 +1,7 @@
 package com.example.gestionpharmacie.Inventory;
 
 import com.example.gestionpharmacie.Medicaments.Medicament;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,7 @@ public class Inventory {
 
     @OneToOne
     @JoinColumn(name = "medicament_id")
+    @JsonIgnore
     private Medicament medicament;
 
     private int availableQuantity;

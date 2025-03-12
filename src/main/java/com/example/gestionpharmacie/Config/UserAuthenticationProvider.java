@@ -8,6 +8,8 @@ import com.example.gestionpharmacie.Dto.UserDto;
 import com.example.gestionpharmacie.Users.UserService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,6 +28,7 @@ public class UserAuthenticationProvider {
     @Value("${security.jwt.token.secret-key:secret-key}")
     private String secretKey;
     private final UserService userService;
+    private static final Logger logger = LoggerFactory.getLogger(UserAuthenticationProvider.class);
 
     @PostConstruct
     protected void init() {
@@ -50,12 +53,18 @@ public class UserAuthenticationProvider {
     }
 
     public Authentication validateToken(String token) {
+        logger.info("🔍 Début de validation du token...");
         Algorithm algorithm = Algorithm.HMAC256(secretKey); // Use of Hashing256 for decryption
 
         JWTVerifier verifier = JWT.require(algorithm)
                 .build();
 
         DecodedJWT decoded = verifier.verify(token);
+
+        logger.info("✅ Token validé avec succès !");
+        logger.info("👤 Utilisateur : {}", decoded.getSubject());
+        logger.info("🔖 Rôle : {}", decoded.getClaim("role").asString());
+
         String role = decoded.getClaim("role").asString();
         List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_" + role));
 
@@ -71,12 +80,18 @@ public class UserAuthenticationProvider {
     }
 
     public Authentication validateTokenStrongly(String token) {
+        logger.info("🔍 Début de validation du token...");
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
 
         JWTVerifier verifier = JWT.require(algorithm)
                 .build();
 
         DecodedJWT decoded = verifier.verify(token);
+
+        logger.info("✅ Token validé avec succès !");
+        logger.info("👤 Utilisateur : {}", decoded.getSubject());
+        logger.info("🔖 Rôle : {}", decoded.getClaim("role").asString());
+
         String role = decoded.getClaim("role").asString();
         List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_" + role));
 

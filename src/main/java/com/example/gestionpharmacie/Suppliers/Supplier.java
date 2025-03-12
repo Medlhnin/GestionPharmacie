@@ -18,9 +18,9 @@ public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String companyName;
-    private String companyAddress;
-    private String companyPhoneNumber;
-    private String companyEmail;
-    private String companyWebsite;
+    private String name;
+    private String address;
+    private String phoneNumber;
+    private String email;
+    private String website;
 }

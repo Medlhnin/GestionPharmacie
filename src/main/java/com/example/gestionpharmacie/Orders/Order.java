@@ -2,6 +2,7 @@ package com.example.gestionpharmacie.Orders;
 
 import com.example.gestionpharmacie.Users.Utilisateur;
 import com.example.gestionpharmacie.OrderItem.OrderItem;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,8 +21,10 @@ import java.util.List;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
     private LocalDateTime creationDate;
+    private String confirmationToken; // Jeton unique pour confirmation
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
     private double totalPrice;
@@ -29,6 +32,7 @@ public class Order {
     // private String address;
     @ManyToOne
     @JoinColumn(name = "utilisateur_id", nullable = false)
+    @JsonIgnore
     private Utilisateur utilisateur;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @JsonManagedReference

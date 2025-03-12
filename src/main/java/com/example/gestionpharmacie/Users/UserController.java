@@ -4,6 +4,9 @@ import com.example.gestionpharmacie.Config.UserAuthenticationProvider;
 import com.example.gestionpharmacie.Dto.CredentialsDto;
 import com.example.gestionpharmacie.Dto.SignUpDto;
 import com.example.gestionpharmacie.Dto.UserDto;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
-@RequiredArgsConstructor
 @Controller
 @RequestMapping("/api/user")
 public class UserController {
@@ -34,5 +36,17 @@ public class UserController {
         UserDto userDto = userService.login(credentialsDto);
         userDto.setToken(userAuthenticationProvider.createToken(userDto));
         return ResponseEntity.ok(userDto);
+    }
+    @PostMapping("/verifyToken")
+    public ResponseEntity<?> verifyToken(@RequestBody String idToken) {
+        try {
+            // Vérifier le token Firebase
+            FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
+            String uid = decodedToken.getUid();
+
+            return ResponseEntity.ok("User authenticated! : " + uid);
+        } catch (FirebaseAuthException e) {
+            return ResponseEntity.status(401).body("Invalid Token!");
+        }
     }
 }
